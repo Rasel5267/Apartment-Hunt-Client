@@ -1,0 +1,41 @@
+.headerWrapper{
+    text-align: center;
+    height: 500px;
+    position: relative;
+  }
+.headerInner{
+    position: relative;
+    z-index: 555;
+    color: white;
+}
+.headerWrapper:before{
+    content: ' ';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -2222;
+    opacity: 0.5;
+    background-image: url('../../../images/backgroungImage.png');
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+}
+.greenBtn{
+    color: white;
+    background-color:#275A53;
+    border-color:#275A53;
+}
+.greenBtn:hover{
+    color: white;
+    background-color: darken(#275A53, 20%);
+    border-color: darken(#275A53, 20%);
+}
+.greenBtn:active{
+    color: white;
+    background-color: darken(#275A53, 10%);
+    border-color: darken(#275A53, 10%);
+}
+.greenBtn:focus{
+    box-shadow: 0 0 0 3px rgb(39, 90, 83, 0.25);
+}
