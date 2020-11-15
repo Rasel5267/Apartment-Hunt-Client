@@ -28,13 +28,13 @@
 }
 .greenBtn:hover{
     color: white;
-    background-color: darken(#275A53, 20%);
-    border-color: darken(#275A53, 20%);
+    background-color: #1e4640;
+    border-color: #1e4640;
 }
 .greenBtn:active{
     color: white;
-    background-color: darken(#275A53, 10%);
-    border-color: darken(#275A53, 10%);
+    background-color: #1e4640;
+    border-color: #1e4640;
 }
 .greenBtn:focus{
     box-shadow: 0 0 0 3px rgb(39, 90, 83, 0.25);
