@@ -114,7 +114,7 @@ const ApartmentDetail = () => {
                                 <Form.Group>
                                     <Form.Control onBlur={handleBlur} as="textarea" name="message" rows={3} type="text" placeholder="Message" required />
                                 </Form.Group>
-                                <button  type="submit" className="btn greenBtn">Submit</button>
+                                <button  type="submit" className="btn greenBtn form-control">Request Booking</button>
                             </Form>
                         </div>
                     </Col>

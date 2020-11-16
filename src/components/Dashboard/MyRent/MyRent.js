@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import logo from '../../../logos/Logo.png';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,12 @@ import { UserContext } from '../../../App';
 const MyRent = () => {
     const datas = apartmentData;
     const [loggedInUser] = useContext(UserContext);
+    const [myRents, setMyRents] = useState([]);
+    useEffect(() => {
+        fetch(`http://localhost:5500/bookings?email=${loggedInUser.email}`)
+            .then(res => res.json())
+            .then(data => setMyRents(data))
+    }, [loggedInUser.email]);
     return (
         <div className="bookings">
             <div className="row">
@@ -44,10 +50,10 @@ const MyRent = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        datas.map(data =>
+                                        myRents.map(rent =>
                                             <tr>
-                                                <td style={{ width: '50%' }} className="pl-3">{data.title}</td>
-                                                <td style={{ width: '25%' }} className="pl-3 text-center">${data.price}</td>
+                                                <td style={{ width: '50%' }} className="pl-3">{rent.house}</td>
+                                                <td style={{ width: '25%' }} className="pl-3 text-center">${rent.price}</td>
                                                 <td style={{ width: '25%' }} className="pl-3 text-center"><button className="btn greenBtn mt-2">View Details</button></td>
                                             </tr>
                                         )
