@@ -19,8 +19,9 @@ const ApartmentDetail = () => {
     }, []);
 
     const { id } = useParams();
-    const apartment = apartmentData.find(data => data._id == id) || {};
+    const apartment = apartmentData.find(data => data._id === id) || {};
     console.log(apartment);
+    console.log(id);
 
     const [bookingInfo, setBookingInfo] = useState({});
     const handleBlur = (e) => {
@@ -28,7 +29,6 @@ const ApartmentDetail = () => {
         newBookingInfo[e.target.name] = e.target.value;
         setBookingInfo(newBookingInfo)
     };
-    console.log(bookingInfo);
     const handleSubmit = e => {
         const formData = new FormData();
         formData.append('name', bookingInfo.name);
@@ -59,7 +59,7 @@ const ApartmentDetail = () => {
             <Container className="mt-5">
                 <Row>
                     <Col md={8}>
-                        <img src={`data:image/png;base64,${apartment.image.img}`} alt="" className="img-fluid" />
+                        {/* <img src={`data:image/png;base64,${apartment.image.img}`} alt="" className="img-fluid" /> */}
                         <div className="pt-3">
                             <Row>
                                 {
@@ -79,11 +79,21 @@ const ApartmentDetail = () => {
                                 <h3 className="greenText text-right">${apartment.price}</h3>
                             </Col>
                         </Row>
-                        <p className="text-secondary">{apartment.details}</p>
+                        <p className="text-secondary">3000 sq-ft., {apartment.bedroom} Bedroom, Semi-furnished, Luxurious, South facing Apartment for Rent in Rangs Malancha, Melbourne.</p>
                         <h3 className="darkGreenText">Price Detail -</h3>
-                        <p className="text-secondary">{apartment.priceDetail}</p>
+                        <p className="text-secondary">
+                            Rent/Month: $550 (negotiable) <br />
+                            Service Charge : 8,000/= Tk per month, subject to change <br />
+                            Security Deposit : 3 month’s rent <br />
+                            Flat Release Policy : 3 months earlier notice required
+                        </p>
                         <h3 className="darkGreenText">Property Detail -</h3>
-                        <p className="text-secondary">{apartment.propertyDetail}</p>
+                        <p className="text-secondary">Address & Area : Rangs Malancha, House-68, Road-6A (Dead End Road), Dhanmondi Residential Area.</p>
+                        <p className="text-secondary">Floor :  A5 (5th Floor) (6 storied Building ) (South Facing Unit)</p>
+                        <p className="text-secondary">Flat Size : 3000 Sq Feet.</p>
+                        <p className="text-secondary">Room Category : 3 Large Bed Rooms with 3 Verandas, Spacious Drawing, Dining & Family Living Room, Highly Decorated Kitchen with Store Room and Servant room with attached Toilet.</p>
+                        <p className="text-secondary">Facilities : 1 Modern Lift, All Modern Amenities & Semi Furnished.</p>
+                        <p className="text-secondary">Additional Facilities : a. Electricity with full generator load, b. Central Gas Geyser, c. 2 Car Parking with 1 Driver’s Accommodation, d. Community Conference Hall, e. Roof Top Beautified Garden and Grassy Ground, f. Cloth Hanging facility with CC camera.</p>
                     </Col>
                     <Col md={4}>
                         <div className="p-2 px-2">
