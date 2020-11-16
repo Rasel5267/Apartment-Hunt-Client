@@ -3,6 +3,8 @@ import './Apartments.css';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import apartmentData from '../../../fakeData/apartmentData';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBath, faBed, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Apartments = () => {
     const datas = apartmentData;
@@ -19,16 +21,16 @@ const Apartments = () => {
                                 <Card.Img src={data.img} alt="image" />
                                 <Card.Body>
                                     <Card.Title>{data.title}</Card.Title>
-                                    <Card.Text>{data.place}</Card.Text>
+                                    <Card.Text className="text-secondary"><FontAwesomeIcon icon={faMapMarkerAlt} /> {data.place}</Card.Text>
                                     <Row>
                                         <Col>
-                                            <Card.Text>{data.ablility[0]}</Card.Text>
+                                            <Card.Text className="text-secondary"><FontAwesomeIcon icon={faBed} /> {data.ablility[0]}</Card.Text>
                                         </Col>
                                         <Col className="text-right">
-                                            <Card.Text>{data.ablility[1]}</Card.Text>
+                                            <Card.Text className="text-secondary"><FontAwesomeIcon icon={faBath} /> {data.ablility[1]}</Card.Text>
                                         </Col>
                                     </Row>
-                                    <Row>
+                                    <Row className="mt-2">
                                         <Col>
                                             <h5>${data.price}</h5>
                                         </Col>
