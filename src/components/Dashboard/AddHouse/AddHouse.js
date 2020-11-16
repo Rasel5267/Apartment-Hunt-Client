@@ -1,68 +1,111 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import logo from '../../../logos/Logo.png';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faHome, faNotesMedical } from '@fortawesome/free-solid-svg-icons'
 import './AddHouse.css';
+import { UserContext } from '../../../App';
 
 const AddHouse = () => {
+    const [loggedInUser] = useContext(UserContext);
+    const [addApartment, setAddApartment] = useState({});
+    const [file, setFile] = useState(null);
+
+    const handleAddHouse = e => {
+        const newApartmentInfo = { ...addApartment };
+        newApartmentInfo[e.target.name] = e.target.value;
+        setAddApartment(newApartmentInfo);
+    };
+    
+    const handleFileChange = (e) => {
+        const newFile = e.target.files[0];
+        setFile(newFile);
+    };
+    console.log(addApartment);
+    console.log(file);
+    const handleAddedData = (e) => {
+
+        const formData = new FormData()
+        formData.append('file', file);
+        formData.append('title', addApartment.title);
+        formData.append('price', addApartment.price);
+        formData.append('location', addApartment.location);
+        formData.append('bedroom', addApartment.bedroom);
+        formData.append('bathroom', addApartment.bathroom);
+
+        fetch('http://localhost:5500/addNewApartment', {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        e.preventDefault();
+        console.log(formData);
+    };
+
     return (
         <div className="bookings">
             <div className="row">
                 <div className="col-md-2 col-sm-12">
                     <div className="sidebar">
                         <div className="logo">
-                            <Link to="/"><img  src={logo} alt="logo" /></Link>
+                            <img src={logo} alt="logo" />
                         </div>
                         <div className="dashboard__link mt-5">
                             <p><Link className="link" to="bookings"><span><FontAwesomeIcon icon={faNotesMedical} size="xs" /> Booking list</span></Link></p>
                             <p><Link className="link" to="addHouse"><span className="booking-link"><FontAwesomeIcon icon={faPlus} size="xs" /> Add Rent House</span></Link></p>
                             <p><Link className="link" to="myRent"><span><FontAwesomeIcon icon={faHome} size="xs" /> My Rent</span></Link></p>
+                            <p className="goHome"><Link className="link" to="/"><span><FontAwesomeIcon icon={faHome} size="xs" /> Back to Home</span></Link></p>
                         </div>
                     </div>
                 </div>
                 <div className="col-md-10 col-sm-12">
                     <div className="sec__title d-flex">
                         <h3 className="pl-3">Add Rent House</h3>
-                        <h5 className="ml-auto user__name">Mahadiul</h5>
+                        <h5 className="ml-auto user__name">{loggedInUser.name}</h5>
                     </div>
                     <div className="dashboard__content">
                         <Form className="addHouse">
                             <Row>
                                 <Col>
                                     <Form.Label className="mt-1">Service Title</Form.Label>
-                                    <Form.Control placeholder="Enter title" required  />
+                                    <Form.Control onBlur={handleAddHouse} name="title" placeholder="Enter title" />
                                 </Col>
                                 <Col>
                                     <Form.Label className="mt-1">Price</Form.Label>
-                                    <Form.Control placeholder="Price" required  />
+                                    <Form.Control onBlur={handleAddHouse} name="price" placeholder="Price" />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
                                     <Form.Label className="mt-1">Location</Form.Label>
-                                    <Form.Control placeholder="Location" required  />
+                                    <Form.Control onBlur={handleAddHouse} name="location" placeholder="Location" />
                                 </Col>
                                 <Col>
                                     <Form.Label className="mt-1">No of Bedroom</Form.Label>
-                                    <Form.Control placeholder="Enter Quantity" required  />
+                                    <Form.Control onBlur={handleAddHouse} name="bedroom" placeholder="Enter Quantity" />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
                                     <Form.Label className="mt-1">No of Bathroom</Form.Label>
-                                    <Form.Control placeholder="Enter Quantity" required  />
+                                    <Form.Control onBlur={handleAddHouse} name="bathroom" placeholder="Enter Quantity" />
                                 </Col>
                                 <Col>
-                                    <Form.Label className="mt-2">Icon</Form.Label>
-                                    <Form.File required />
+                                    <Form.Label className="mt-1">Thumbnail</Form.Label>
+                                    <Form.File onChange={handleFileChange} id="exampleFormControlFile1" />
                                 </Col>
                             </Row>
+                            <div className="text-right mt-3 mr-1">
+                                <button type="submit" onClick={handleAddedData} className="btn greenBtn">Submit</button>
+                            </div>
                         </Form>
-                        <div className="text-right mt-3 mr-1">
-                            <button className="btn greenBtn">Submit</button>
-                        </div>
                     </div>
                 </div>
             </div>
