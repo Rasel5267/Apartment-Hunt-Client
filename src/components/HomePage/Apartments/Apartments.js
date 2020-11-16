@@ -2,9 +2,11 @@ import React from 'react';
 import './Apartments.css';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import apartmentData from '../../../fakeData/apartmentData';
+import { useHistory } from 'react-router-dom';
 
 const Apartments = () => {
     const datas = apartmentData;
+    const history = useHistory();
     return (
         <Container>
             <h5 className="greenText text-center mt-5">House Rent</h5>
@@ -31,7 +33,7 @@ const Apartments = () => {
                                             <h5>${data.price}</h5>
                                         </Col>
                                         <Col className="text-right">
-                                            <button className="btn greenBtn">View Details</button>
+                                            <button onClick={() => history.push('/apartmentDetail')} className="btn greenBtn">View Details</button>
                                         </Col>
                                     </Row>
                                 </Card.Body>

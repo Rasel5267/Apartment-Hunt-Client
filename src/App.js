@@ -7,31 +7,38 @@ import Bookings from './components/Dashboard/Bookings/Bookings';
 import AddHouse from './components/Dashboard/AddHouse/AddHouse';
 import MyRent from './components/Dashboard/MyRent/MyRent';
 import Login from './components/Login/Login';
+import { createContext, useState } from 'react';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+
+export const UserContext = createContext();
 
 function App() {
+  const [loggedInUser, setLoggedInUser] = useState({});
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/apartmentDetail">
-          <ApartmentDetail />
-        </Route>        
-        <Route path="/bookings">
-          <Bookings />
-        </Route>
-        <Route path="/addHouse">
-          <AddHouse />
-        </Route>
-        <Route path="/myRent">
-          <MyRent />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
-    </Router>
+    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <PrivateRoute path="/apartmentDetail">
+            <ApartmentDetail />
+          </PrivateRoute>
+          <Route path="/bookings">
+            <Bookings />
+          </Route>
+          <Route path="/addHouse">
+            <AddHouse />
+          </Route>
+          <Route path="/myRent">
+            <MyRent />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+        </Switch>
+      </Router>
+    </UserContext.Provider>
   );
 }
 

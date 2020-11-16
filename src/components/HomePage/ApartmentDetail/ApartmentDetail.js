@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import './ApartmentDetail.css';
 import apartmentImg from '../../../images/apartment2.png';
+import { UserContext } from '../../../App';
 
 const data = {
     title: "Family Apartment Three",
@@ -17,6 +18,8 @@ const data = {
 const images = [apartmentImg,apartmentImg,apartmentImg,apartmentImg];
 
 const ApartmentDetail = () => {
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    
     return (
         <div>
             <NavigationBar></NavigationBar>
