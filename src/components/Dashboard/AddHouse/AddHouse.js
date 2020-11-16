@@ -3,7 +3,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import logo from '../../../logos/Logo.png';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faHome , faNotesMedical } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faHome, faNotesMedical } from '@fortawesome/free-solid-svg-icons'
 import './AddHouse.css';
 
 const AddHouse = () => {
@@ -13,12 +13,12 @@ const AddHouse = () => {
                 <div className="col-md-2 col-sm-12">
                     <div className="sidebar">
                         <div className="logo">
-                            <img src={logo} alt="logo"/>
+                            <Link to="/"><img  src={logo} alt="logo" /></Link>
                         </div>
                         <div className="dashboard__link mt-5">
-                            <p><Link className="link" to="bookings"><span><FontAwesomeIcon icon={faNotesMedical} size="xs"/> Booking list</span></Link></p>
-                            <p><Link className="link" to="addHouse"><span className="booking-link"><FontAwesomeIcon icon={faPlus} size="xs"/> Add Rent House</span></Link></p>
-                            <p><Link className="link" to="myRent"><span><FontAwesomeIcon icon={faHome} size="xs"/> My Rent</span></Link></p>
+                            <p><Link className="link" to="bookings"><span><FontAwesomeIcon icon={faNotesMedical} size="xs" /> Booking list</span></Link></p>
+                            <p><Link className="link" to="addHouse"><span className="booking-link"><FontAwesomeIcon icon={faPlus} size="xs" /> Add Rent House</span></Link></p>
+                            <p><Link className="link" to="myRent"><span><FontAwesomeIcon icon={faHome} size="xs" /> My Rent</span></Link></p>
                         </div>
                     </div>
                 </div>
@@ -32,31 +32,31 @@ const AddHouse = () => {
                             <Row>
                                 <Col>
                                     <Form.Label className="mt-1">Service Title</Form.Label>
-                                    <Form.Control placeholder="Enter title" />
+                                    <Form.Control placeholder="Enter title" required  />
                                 </Col>
                                 <Col>
                                     <Form.Label className="mt-1">Price</Form.Label>
-                                    <Form.Control placeholder="Price" />
+                                    <Form.Control placeholder="Price" required  />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
                                     <Form.Label className="mt-1">Location</Form.Label>
-                                    <Form.Control placeholder="Location" />
+                                    <Form.Control placeholder="Location" required  />
                                 </Col>
                                 <Col>
                                     <Form.Label className="mt-1">No of Bedroom</Form.Label>
-                                    <Form.Control placeholder="Enter Quantity" />
+                                    <Form.Control placeholder="Enter Quantity" required  />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
-                                    <Form.Label className="mt-1">No of Person</Form.Label>
-                                    <Form.Control placeholder="Enter Quantity" />
+                                    <Form.Label className="mt-1">No of Bathroom</Form.Label>
+                                    <Form.Control placeholder="Enter Quantity" required  />
                                 </Col>
                                 <Col>
-                                    <Form.Label className="mt-1">Email address</Form.Label>
-                                    <Form.Control placeholder="Last name" />
+                                    <Form.Label className="mt-2">Icon</Form.Label>
+                                    <Form.File required />
                                 </Col>
                             </Row>
                         </Form>
@@ -65,7 +65,7 @@ const AddHouse = () => {
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     );
 };

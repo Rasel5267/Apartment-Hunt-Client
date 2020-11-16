@@ -33,7 +33,7 @@ const Apartments = () => {
                                             <h5>${data.price}</h5>
                                         </Col>
                                         <Col className="text-right">
-                                            <button onClick={() => history.push('/apartmentDetail')} className="btn greenBtn">View Details</button>
+                                            <button onClick={() => history.push(`/apartmentDetail/${data.id}`)} className="btn greenBtn">View Details</button>
                                         </Col>
                                     </Row>
                                 </Card.Body>
