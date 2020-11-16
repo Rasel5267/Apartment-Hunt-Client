@@ -1,25 +1,44 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import './ApartmentDetail.css';
 import apartmentImg from '../../../images/apartment2.png';
 import { UserContext } from '../../../App';
+import apartmentData from '../../../fakeData/apartmentData';
+import { useParams } from 'react-router-dom';
 
-const data = {
-    title: "Family Apartment Three",
-    place: "Nasirabad H/S, Chattogram",
-    img: apartmentImg,
-    ablility: ["3 Bedroom", "3 Bathroom"],
-    price: 356,
-    details: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia aperiam ea soluta architecto doloremque iste. Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia aperiam ea soluta architecto doloremque iste.",
-    priceDetail: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia deserunt ipsam officia aliquid beatae quasi alias excepturi, magni eum ut optio unde labore tenetur laborum voluptates delectus, animi quam sequi. Quia deserunt ipsam officia aliquid beatae quasi alias excepturi, magni eum ut optio unde labore tenetur laborum voluptates delectus, animi quam sequi.",
-    propertyDetail: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, illum unde ut id perspiciatis fugiat inventore molestiae dolore natus enim non dolores in sint ab rem ducimus, illo eum laboriosam ad delectus? Incidunt repudiandae modi quisquam libero id assumenda! Magnam laborum voluptatibus eveniet incidunt fugit consequuntur nihil mollitia, commodi nesciunt molestias vero, veritatis corporis quam ullam debitis non facilis ratione! Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, illum unde ut id perspiciatis fugiat inventore molestiae dolore natus enim non dolores in sint ab rem ducimus, illo eum laboriosam ad delectus? Incidunt repudiandae modi quisquam libero id assumenda! Magnam laborum voluptatibus eveniet incidunt fugit consequuntur nihil mollitia, commodi nesciunt molestias vero, veritatis corporis quam ullam debitis non facilis ratione!"
-};
-const images = [apartmentImg,apartmentImg,apartmentImg,apartmentImg];
+const images = [apartmentImg, apartmentImg, apartmentImg, apartmentImg];
 
 const ApartmentDetail = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    
+    const { id } = useParams();
+    const apartment = apartmentData.find(data => data.id === parseInt(id)) || {};
+
+    const [bookingInfo, setBookingInfo] = useState({});
+    const handleBlur = (e) => {
+        const newBookingInfo = { ...bookingInfo };
+        newBookingInfo[e.target.name] = e.target.value;
+        setBookingInfo(newBookingInfo)
+    };
+    console.log(bookingInfo);
+    const handleSubmit = e => {
+        const formData = new FormData();
+        formData.append('name', bookingInfo.name);
+        formData.append('number', bookingInfo.number);
+        formData.append('email', bookingInfo.email);
+        formData.append('message', bookingInfo.message);
+
+        fetch('http://localhost:5500/addBooking', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+
+        e.preventDefault();
+    }
     return (
         <div>
             <NavigationBar></NavigationBar>
@@ -32,13 +51,13 @@ const ApartmentDetail = () => {
             <Container className="mt-5">
                 <Row>
                     <Col md={8}>
-                        <img src={data.img} alt="" className="img-fluid" />
+                        <img src={apartment.img} alt="" className="img-fluid" />
                         <div className="pt-3">
                             <Row>
                                 {
-                                    images.map(image => 
+                                    images.map(image =>
                                         <Col sm={3}>
-                                            <img src={image} alt="" style={{height:"90px"}} />
+                                            <img src={image} alt="" style={{ height: "90px" }} />
                                         </Col>
                                     )
                                 }
@@ -46,34 +65,34 @@ const ApartmentDetail = () => {
                         </div>
                         <Row className="mt-3">
                             <Col>
-                                <h3 className="darkGreenText">{data.title}</h3>
+                                <h3 className="darkGreenText">{apartment.title}</h3>
                             </Col>
                             <Col>
-                                <h3 className="greenText text-right">${data.price}</h3>
+                                <h3 className="greenText text-right">${apartment.price}</h3>
                             </Col>
                         </Row>
-                        <p className="text-secondary">{data.details}</p>
+                        <p className="text-secondary">{apartment.details}</p>
                         <h3 className="darkGreenText">Price Detail -</h3>
-                        <p className="text-secondary">{data.priceDetail}</p>
+                        <p className="text-secondary">{apartment.priceDetail}</p>
                         <h3 className="darkGreenText">Property Detail -</h3>
-                        <p className="text-secondary">{data.propertyDetail}</p>
+                        <p className="text-secondary">{apartment.propertyDetail}</p>
                     </Col>
                     <Col md={4}>
                         <div className="p-2 px-2">
                             <Form>
                                 <Form.Group>
-                                    <Form.Control type="name" placeholder="Full Name" required />
+                                    <Form.Control onBlur={handleBlur} type="name" name="name" placeholder="Full Name" required />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control type="number" placeholder="Phone No." required />
+                                    <Form.Control onBlur={handleBlur} type="number" name="number" placeholder="Phone No." required />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control type="email" placeholder="Email Address" required />
+                                    <Form.Control onBlur={handleBlur} type="email" name="email" placeholder="Email Address" required />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control as="textarea" rows={3} type="text" placeholder="Message" required />
+                                    <Form.Control onBlur={handleBlur} as="textarea" name="message" rows={3} type="text" placeholder="Message" required />
                                 </Form.Group>
-                                <button className="btn greenBtn" type="submit">Submit</button>
+                                <button onClick={handleSubmit} type="submit" className="btn greenBtn">Submit</button>
                             </Form>
                         </div>
                     </Col>
