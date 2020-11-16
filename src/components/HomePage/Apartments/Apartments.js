@@ -22,7 +22,7 @@ const Apartments = () => {
                                         <Col>
                                             <Card.Text>{data.ablility[0]}</Card.Text>
                                         </Col>
-                                        <Col>
+                                        <Col className="text-right">
                                             <Card.Text>{data.ablility[1]}</Card.Text>
                                         </Col>
                                     </Row>
@@ -30,7 +30,7 @@ const Apartments = () => {
                                         <Col>
                                             <h5>${data.price}</h5>
                                         </Col>
-                                        <Col>
+                                        <Col className="text-right">
                                             <button className="btn greenBtn">View Details</button>
                                         </Col>
                                     </Row>

@@ -24,6 +24,7 @@ const ApartmentDetail = () => {
                 <div className="apartmentInner pt-5 ">
                     <h1 className="pt-5 mt-3">Apartment</h1>
                 </div>
+                <div className="apartmentOverlay"></div>
             </div>
             <Container className="mt-5">
                 <Row>
