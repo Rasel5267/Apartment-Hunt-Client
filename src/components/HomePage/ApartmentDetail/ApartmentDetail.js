@@ -1,18 +1,26 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import './ApartmentDetail.css';
 import apartmentImg from '../../../images/apartment2.png';
 import { UserContext } from '../../../App';
-import apartmentData from '../../../fakeData/apartmentData';
 import { useParams } from 'react-router-dom';
 
 const images = [apartmentImg, apartmentImg, apartmentImg, apartmentImg];
 
 const ApartmentDetail = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
+    const [apartmentData, setApartmentData] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5500/apartments')
+            .then(res => res.json())
+            .then(data => setApartmentData(data))
+    }, []);
+
     const { id } = useParams();
-    const apartment = apartmentData.find(data => data.id === parseInt(id)) || {};
+    const apartment = apartmentData.find(data => data._id == id) || {};
+    console.log(apartment);
 
     const [bookingInfo, setBookingInfo] = useState({});
     const handleBlur = (e) => {
@@ -38,7 +46,7 @@ const ApartmentDetail = () => {
             })
 
         e.preventDefault();
-    }
+    };
     return (
         <div>
             <NavigationBar></NavigationBar>
@@ -51,7 +59,7 @@ const ApartmentDetail = () => {
             <Container className="mt-5">
                 <Row>
                     <Col md={8}>
-                        <img src={apartment.img} alt="" className="img-fluid" />
+                        <img src={`data:image/png;base64,${apartment.image.img}`} alt="" className="img-fluid" />
                         <div className="pt-3">
                             <Row>
                                 {
@@ -81,7 +89,7 @@ const ApartmentDetail = () => {
                         <div className="p-2 px-2">
                             <Form>
                                 <Form.Group>
-                                    <Form.Control onBlur={handleBlur} type="name" name="name" placeholder="Full Name" required />
+                                    <Form.Control onBlur={handleBlur} value={loggedInUser.email} type="name" name="name" placeholder="Full Name" required />
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Control onBlur={handleBlur} type="number" name="number" placeholder="Phone No." required />

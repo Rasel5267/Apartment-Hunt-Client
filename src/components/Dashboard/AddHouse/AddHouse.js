@@ -75,31 +75,31 @@ const AddHouse = () => {
                             <Row>
                                 <Col>
                                     <Form.Label className="mt-1">Service Title</Form.Label>
-                                    <Form.Control onBlur={handleAddHouse} name="title" placeholder="Enter title" />
+                                    <Form.Control onBlur={handleAddHouse} name="title" type="text" placeholder="Enter title" required />
                                 </Col>
                                 <Col>
                                     <Form.Label className="mt-1">Price</Form.Label>
-                                    <Form.Control onBlur={handleAddHouse} name="price" placeholder="Price" />
+                                    <Form.Control onBlur={handleAddHouse} name="price" type="number" placeholder="Price" required />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
                                     <Form.Label className="mt-1">Location</Form.Label>
-                                    <Form.Control onBlur={handleAddHouse} name="location" placeholder="Location" />
+                                    <Form.Control onBlur={handleAddHouse} name="location" type="text" placeholder="Location" required />
                                 </Col>
                                 <Col>
                                     <Form.Label className="mt-1">No of Bedroom</Form.Label>
-                                    <Form.Control onBlur={handleAddHouse} name="bedroom" placeholder="Enter Quantity" />
+                                    <Form.Control onBlur={handleAddHouse} name="bedroom" type="number" placeholder="Enter Quantity" required />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
                                     <Form.Label className="mt-1">No of Bathroom</Form.Label>
-                                    <Form.Control onBlur={handleAddHouse} name="bathroom" placeholder="Enter Quantity" />
+                                    <Form.Control onBlur={handleAddHouse} name="bathroom" type="number" placeholder="Enter Quantity" required />
                                 </Col>
                                 <Col>
                                     <Form.Label className="mt-1">Thumbnail</Form.Label>
-                                    <Form.File onChange={handleFileChange} id="exampleFormControlFile1" />
+                                    <Form.File onChange={handleFileChange} required />
                                 </Col>
                             </Row>
                             <div className="text-right mt-3 mr-1">

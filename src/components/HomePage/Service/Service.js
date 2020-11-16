@@ -30,7 +30,7 @@ const Service = () => {
             <Row className="mt-5">
                 {
                     services.map(service =>
-                        <Col key={service.id} sm={4}>
+                        <Col key={service.name} sm={4}>
                             <div className="text-center mb-4">
                                 <img style={{height:"100px"}} src={service.img} alt="" />
                                 <Card.Body>

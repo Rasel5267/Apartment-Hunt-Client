@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Apartments.css';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import apartmentData from '../../../fakeData/apartmentData';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBath, faBed, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Apartments = () => {
-    const datas = apartmentData;
+    const [apartmentData, setApartmentData] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5500/apartments')
+            .then(res => res.json())
+            .then(data => setApartmentData(data))
+    }, []);
     const history = useHistory();
     return (
         <Container>
@@ -15,19 +19,19 @@ const Apartments = () => {
             <h1 className="darkGreenText text-center">Discover the largest Rent <br /> available today</h1>
             <Row className="mt-5">
                 {
-                    datas.map(data =>
-                        <Col key={data.id} sm={4}>
+                    apartmentData.map(data =>
+                        <Col key={data._id} sm={4}>
                             <Card className="bg-white mb-4 card-style">
-                                <Card.Img src={data.img} alt="image" />
+                                <Card.Img src={`data:image/png;base64,${data.image.img}`} alt="image" />
                                 <Card.Body>
                                     <Card.Title>{data.title}</Card.Title>
-                                    <Card.Text className="text-secondary"><FontAwesomeIcon icon={faMapMarkerAlt} /> {data.place}</Card.Text>
+                                    <Card.Text className="text-secondary"><FontAwesomeIcon icon={faMapMarkerAlt} /> {data.location}</Card.Text>
                                     <Row>
                                         <Col>
-                                            <Card.Text className="text-secondary"><FontAwesomeIcon icon={faBed} /> {data.ablility[0]}</Card.Text>
+                                            <Card.Text className="text-secondary"><FontAwesomeIcon icon={faBed} /> {data.bedroom} Bedrooms</Card.Text>
                                         </Col>
                                         <Col className="text-right">
-                                            <Card.Text className="text-secondary"><FontAwesomeIcon icon={faBath} /> {data.ablility[1]}</Card.Text>
+                                            <Card.Text className="text-secondary"><FontAwesomeIcon icon={faBath} /> {data.bathroom} Bathrooms</Card.Text>
                                         </Col>
                                     </Row>
                                     <Row className="mt-2">
@@ -35,7 +39,7 @@ const Apartments = () => {
                                             <h5>${data.price}</h5>
                                         </Col>
                                         <Col className="text-right">
-                                            <button onClick={() => history.push(`/apartmentDetail/${data.id}`)} className="btn greenBtn">View Details</button>
+                                            <button onClick={() => history.push(`/apartmentDetail/${data._id}`)} className="btn greenBtn">View Details</button>
                                         </Col>
                                     </Row>
                                 </Card.Body>
