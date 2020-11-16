@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 const images = [apartmentImg, apartmentImg, apartmentImg, apartmentImg];
 
 const ApartmentDetail = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [loggedInUser] = useContext(UserContext);
 
     const [apartmentData, setApartmentData] = useState([]);
     useEffect(() => {

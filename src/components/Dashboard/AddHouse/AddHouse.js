@@ -55,7 +55,7 @@ const AddHouse = () => {
                 <div className="col-md-2 col-sm-12">
                     <div className="sidebar">
                         <div className="logo">
-                            <img src={logo} alt="logo" />
+                            <Link to="/"><img src={logo} alt="logo" /></Link>
                         </div>
                         <div className="dashboard__link mt-5">
                             <p><Link className="link" to="bookings"><span><FontAwesomeIcon icon={faNotesMedical} size="xs" /> Booking list</span></Link></p>

@@ -1,27 +1,49 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import './Bookings.css';
 import logo from '../../../logos/Logo.png';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faHome , faNotesMedical } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faHome, faNotesMedical } from '@fortawesome/free-solid-svg-icons'
 import { UserContext } from '../../../App';
 
 const Bookings = () => {
     const [loggedInUser] = useContext(UserContext);
+    const [bookingInfo, setBookingInfo] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:5500/allBookings')
+            .then(res => res.json())
+            .then(data => setBookingInfo(data))
+    }, []);
+
+    const statuses = ['Pending', 'Booked', 'Check-In', 'Checked-Out'];
+    const statusChange = (id, e) => {
+        const updatedBookingInfo = { status: e.target.value };
+
+        fetch(`http://localhost:5500/update/${id}`, {
+            method: 'PATCH',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedBookingInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+    };
+
     return (
         <div className="bookings">
             <div className="row">
                 <div className="col-md-2 col-sm-12">
                     <div className="sidebar">
                         <div className="logo">
-                            <img src={logo} alt="logo"/>
+                            <img src={logo} alt="logo" />
                         </div>
                         <div className="mt-5">
-                            <p><Link className="link" to="bookings"><span className="booking-link"><FontAwesomeIcon icon={faNotesMedical} size="xs"/> Booking list</span></Link></p>
-                            <p><Link className="link" to="addHouse"><span><FontAwesomeIcon icon={faPlus} size="xs"/> Add Rent House</span></Link></p>
-                            <p><Link className="link" to="myRent"><span><FontAwesomeIcon icon={faHome} size="xs"/> My Rent</span></Link></p>
-                            <p className="goHome"><Link className="link" to="/"><span><FontAwesomeIcon icon={faHome} size="xs"/> Back to Home</span></Link></p>
+                            <p><Link className="link" to="bookings"><span className="booking-link"><FontAwesomeIcon icon={faNotesMedical} size="xs" /> Booking list</span></Link></p>
+                            <p><Link className="link" to="addHouse"><span><FontAwesomeIcon icon={faPlus} size="xs" /> Add Rent House</span></Link></p>
+                            <p><Link className="link" to="myRent"><span><FontAwesomeIcon icon={faHome} size="xs" /> My Rent</span></Link></p>
+                            <p className="goHome"><Link className="link" to="/"><span><FontAwesomeIcon icon={faHome} size="xs" /> Back to Home</span></Link></p>
                         </div>
                     </div>
                 </div>
@@ -43,51 +65,31 @@ const Bookings = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td style={{width: '20%'}} className="pl-3">Mahadiul Hasan</td>
-                                        <td style={{width: '20%'}} className="pl-3">mahadiulhasan49@gmail.com</td>
-                                        <td style={{width: '10%'}} className="pl-3">017XXXXXXXX</td>
-                                        <td style={{width: '25%'}} className="pl-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui nobis fugit consequuntur itaque vero ipsam.</td>
-                                        <td style={{width: '10%'}} className="pl-3">
-                                            <select className='status'>
-                                                <option>Pending</option>
-                                                <option>On Going</option>
-                                                <option>Done</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{width: '20%'}} className="pl-3">Mahadiul Hasan</td>
-                                        <td style={{width: '20%'}} className="pl-3">mahadiulhasan49@gmail.com</td>
-                                        <td style={{width: '10%'}} className="pl-3">017XXXXXXXX</td>
-                                        <td style={{width: '25%'}} className="pl-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui nobis fugit consequuntur itaque vero ipsam.</td>
-                                        <td style={{width: '10%'}} className="pl-3">
-                                            <select className='status'>
-                                                <option>Pending</option>
-                                                <option>On Going</option>
-                                                <option>Done</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{width: '20%'}} className="pl-3">Mahadiul Hasan</td>
-                                        <td style={{width: '20%'}} className="pl-3">mahadiulhasan49@gmail.com</td>
-                                        <td style={{width: '10%'}} className="pl-3">017XXXXXXXX</td>
-                                        <td style={{width: '25%'}} className="pl-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui nobis fugit consequuntur itaque vero ipsam.</td>
-                                        <td style={{width: '10%'}} className="pl-3">
-                                            <select className='status'>
-                                                <option>Pending</option>
-                                                <option>On Going</option>
-                                                <option>Done</option>
-                                            </select>
-                                        </td>
-                                    </tr>
+                                    {
+                                        bookingInfo.map(booking =>
+                                            <tr>
+                                                <td style={{ width: '20%' }} className="pl-3">{booking.name}</td>
+                                                <td style={{ width: '20%' }} className="pl-3">{booking.email}</td>
+                                                <td style={{ width: '10%' }} className="pl-3">{booking.number}</td>
+                                                <td style={{ width: '25%' }} className="pl-3">{booking.message}</td>
+                                                <td style={{ width: '12%' }} className="pl-3">
+                                                    <select className="form-control" onChange={(e) => statusChange(booking._id, e)} name="status">
+                                                        {
+                                                            statuses.map(option =>
+                                                                <option key={option} value={option} selected={option === booking.status}>{option}</option>
+                                                            )
+                                                        }
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }
                                 </tbody>
                             </Table>
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     );
 };
