@@ -27,14 +27,18 @@ const ApartmentDetail = () => {
     const handleBlur = (e) => {
         const newBookingInfo = { ...bookingInfo };
         newBookingInfo[e.target.name] = e.target.value;
-        setBookingInfo(newBookingInfo)
+        newBookingInfo.status = 'Pending';
+        setBookingInfo(newBookingInfo);
     };
     const handleSubmit = e => {
         const formData = new FormData();
-        formData.append('name', bookingInfo.name);
+        formData.append('name', bookingInfo.name || loggedInUser.name);
         formData.append('number', bookingInfo.number);
-        formData.append('email', bookingInfo.email);
+        formData.append('email', bookingInfo.email || loggedInUser.email);
         formData.append('message', bookingInfo.message);
+        formData.append('house', apartment.title);
+        formData.append('price', apartment.price);
+        formData.append('status', bookingInfo.status);
 
         fetch('http://localhost:5500/addBooking', {
             method: 'POST',
@@ -97,20 +101,20 @@ const ApartmentDetail = () => {
                     </Col>
                     <Col md={4}>
                         <div className="p-2 px-2">
-                            <Form>
+                            <Form onSubmit={handleSubmit}>
                                 <Form.Group>
-                                    <Form.Control onBlur={handleBlur} value={loggedInUser.email} type="name" name="name" placeholder="Full Name" required />
+                                    <Form.Control onBlur={handleBlur} value={loggedInUser.name} type="name" name="name" placeholder="Full Name" required />
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Control onBlur={handleBlur} type="number" name="number" placeholder="Phone No." required />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control onBlur={handleBlur} type="email" name="email" placeholder="Email Address" required />
+                                    <Form.Control onBlur={handleBlur} value={loggedInUser.email} type="email" name="email" placeholder="Email Address" required />
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Control onBlur={handleBlur} as="textarea" name="message" rows={3} type="text" placeholder="Message" required />
                                 </Form.Group>
-                                <button onClick={handleSubmit} type="submit" className="btn greenBtn">Submit</button>
+                                <button  type="submit" className="btn greenBtn">Submit</button>
                             </Form>
                         </div>
                     </Col>
