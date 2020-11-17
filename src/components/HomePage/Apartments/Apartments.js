@@ -8,7 +8,7 @@ import { faBath, faBed, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons
 const Apartments = () => {
     const [apartmentData, setApartmentData] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5500/apartments')
+        fetch('https://afternoon-atoll-75607.herokuapp.com/apartments')
             .then(res => res.json())
             .then(data => setApartmentData(data))
     }, []);

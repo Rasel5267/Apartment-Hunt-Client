@@ -22,7 +22,7 @@ const AddHouse = () => {
         const newFile = e.target.files[0];
         setFile(newFile);
     };
-    
+
     const handleAddedData = (e) => {
 
         const formData = new FormData()
@@ -33,7 +33,7 @@ const AddHouse = () => {
         formData.append('bedroom', addApartment.bedroom);
         formData.append('bathroom', addApartment.bathroom);
 
-        fetch('http://localhost:5500/addNewApartment', {
+        fetch('https://afternoon-atoll-75607.herokuapp.com/addNewApartment', {
             method: 'POST',
             body: formData
         })
