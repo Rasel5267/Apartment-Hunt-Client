@@ -49,10 +49,10 @@ const MyRent = () => {
                                 <tbody>
                                     {
                                         myRents.map(rent =>
-                                            <tr>
-                                                <td style={{ width: '40%' }} className="pl-3">{rent.house}</td>
-                                                <td style={{ width: '30%' }} className="pl-3 text-center">${rent.price}</td>
-                                                <td style={{ width: '30%' }} className="pl-3 text-center"><button className="btn greenBtn mt-2">View Details</button></td>
+                                            <tr key={rent._id}>
+                                                <td style={{ width: '40%' }} className="pl-3 pt-3">{rent.house}</td>
+                                                <td style={{ width: '30%' }} className="pl-3 pt-3 text-center">${rent.price}</td>
+                                                <td style={{ width: '30%' }} className="pl-3 text-center"><button className="btn greenBtn mt-2 btn-sm">View Details</button></td>
                                             </tr>
                                         )
                                     }

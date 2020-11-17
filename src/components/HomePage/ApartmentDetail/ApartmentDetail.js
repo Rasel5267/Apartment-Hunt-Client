@@ -2,13 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import NavigationBar from '../NavigationBar/NavigationBar';
 import './ApartmentDetail.css';
-import apartmentImg from '../../../images/apartment2.png';
+import house from '../../../images/house.png';
 import { UserContext } from '../../../App';
 import { useParams } from 'react-router-dom';
+import imageDatas from '../../../fakeData/imageDatas';
 
-const images = [apartmentImg, apartmentImg, apartmentImg, apartmentImg];
 
 const ApartmentDetail = () => {
+    const insideHouse = imageDatas;
+
     const [loggedInUser] = useContext(UserContext);
 
     const [apartmentData, setApartmentData] = useState([]);
@@ -56,42 +58,42 @@ const ApartmentDetail = () => {
             <NavigationBar></NavigationBar>
             <div className="apartmentWrapper text-center">
                 <div className="apartmentInner pt-5 ">
-                    <h1 className="pt-5 mt-3">Apartment</h1>
+                    <h1 className="pt-5 mt-3 font-weight-bold">Apartment</h1>
                 </div>
                 <div className="apartmentOverlay"></div>
             </div>
             <Container className="mt-5">
                 <Row>
                     <Col md={8}>
-                        {/* <img src={`data:image/png;base64,${apartment.image.img}`} alt="" className="img-fluid" /> */}
+                        <img src={house} alt="" className="img-fluid" />
                         <div className="pt-3">
                             <Row>
                                 {
-                                    images.map(image =>
-                                        <Col sm={3}>
-                                            <img src={image} alt="" style={{ height: "90px" }} />
+                                    insideHouse.map(image =>
+                                        <Col key={image.id} sm={6} md={3}>
+                                            <img src={image.img} className="my-2" alt="" style={{ height: "105px" }} />
                                         </Col>
                                     )
                                 }
                             </Row>
                         </div>
-                        <Row className="mt-3">
+                        <Row className="my-3">
                             <Col>
-                                <h3 className="darkGreenText">{apartment.title}</h3>
+                                <h2 className="font-weight-bold darkGreenText">{apartment.title}</h2>
                             </Col>
                             <Col>
-                                <h3 className="greenText text-right">${apartment.price}</h3>
+                                <h2 className="font-weight-bold greenText text-right">${apartment.price}</h2>
                             </Col>
                         </Row>
                         <p className="text-secondary">3000 sq-ft., {apartment.bedroom} Bedroom, Semi-furnished, Luxurious, South facing Apartment for Rent in Rangs Malancha, Melbourne.</p>
-                        <h3 className="darkGreenText">Price Detail -</h3>
+                        <h3 className="font-weight-bold darkGreenText">Price Detail -</h3>
                         <p className="text-secondary">
                             Rent/Month: $550 (negotiable) <br />
                             Service Charge : 8,000/= Tk per month, subject to change <br />
                             Security Deposit : 3 month’s rent <br />
                             Flat Release Policy : 3 months earlier notice required
                         </p>
-                        <h3 className="darkGreenText">Property Detail -</h3>
+                        <h3 className="font-weight-bold darkGreenText">Property Detail -</h3>
                         <p className="text-secondary">Address & Area : Rangs Malancha, House-68, Road-6A (Dead End Road), Dhanmondi Residential Area.</p>
                         <p className="text-secondary">Floor :  A5 (5th Floor) (6 storied Building ) (South Facing Unit)</p>
                         <p className="text-secondary">Flat Size : 3000 Sq Feet.</p>
@@ -100,21 +102,21 @@ const ApartmentDetail = () => {
                         <p className="text-secondary">Additional Facilities : a. Electricity with full generator load, b. Central Gas Geyser, c. 2 Car Parking with 1 Driver’s Accommodation, d. Community Conference Hall, e. Roof Top Beautified Garden and Grassy Ground, f. Cloth Hanging facility with CC camera.</p>
                     </Col>
                     <Col md={4}>
-                        <div className="p-2 px-2">
+                        <div className="px-1 pt-5 pb-2">
                             <Form onSubmit={handleSubmit}>
                                 <Form.Group>
-                                    <Form.Control onBlur={handleBlur} value={loggedInUser.name} type="name" name="name" placeholder="Full Name" required />
+                                    <Form.Control onBlur={handleBlur} size="lg" value={loggedInUser.name} type="name" name="name" placeholder="Full Name" required />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control onBlur={handleBlur} type="number" name="number" placeholder="Phone No." required />
+                                    <Form.Control onBlur={handleBlur} size="lg" type="number" name="number" placeholder="Phone No." required />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control onBlur={handleBlur} value={loggedInUser.email} type="email" name="email" placeholder="Email Address" required />
+                                    <Form.Control onBlur={handleBlur} size="lg" value={loggedInUser.email} type="email" name="email" placeholder="Email Address" required />
                                 </Form.Group>
                                 <Form.Group>
-                                    <Form.Control onBlur={handleBlur} as="textarea" name="message" rows={3} type="text" placeholder="Message" required />
+                                    <Form.Control onBlur={handleBlur} size="lg" as="textarea" name="message" rows={3} type="text" placeholder="Message" required />
                                 </Form.Group>
-                                <button  type="submit" className="btn greenBtn form-control">Request Booking</button>
+                                <button  type="submit" size="lg" className="btn greenBtn form-control">Request Booking</button>
                             </Form>
                         </div>
                     </Col>

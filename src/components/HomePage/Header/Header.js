@@ -7,7 +7,7 @@ const Header = () => {
         <div className="headerWrapper">
             <Container>
                 <div className="headerInnner  pt-5 ">
-                    <h1 className="mt-5 pt-5 text-white">FIND YOUR HOUSE RENT</h1>
+                    <h1 className="mt-5 pt-5 text-white font-weight-bold">FIND YOUR HOUSE RENT</h1>
                     <Row className="text-center justify-content-center" >
                         <InputGroup style={{width:"700px"}} size="lg" className="mb-3 mt-4">
                             <FormControl placeholder="Search..." />

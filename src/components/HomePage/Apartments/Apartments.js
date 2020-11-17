@@ -16,7 +16,7 @@ const Apartments = () => {
     return (
         <Container>
             <h5 className="greenText text-center mt-5">House Rent</h5>
-            <h1 className="darkGreenText text-center">Discover the largest Rent <br /> available today</h1>
+            <h2 className="darkGreenText text-center font-weight-bold">Discover the largest Rent <br /> available today</h2>
             <Row className="mt-5">
                 {
                     apartmentData.map(data =>
@@ -24,7 +24,7 @@ const Apartments = () => {
                             <Card className="bg-white mb-4 card-style">
                                 <Card.Img src={`data:image/png;base64,${data.image.img}`} alt="image" />
                                 <Card.Body>
-                                    <Card.Title>{data.title}</Card.Title>
+                                    <Card.Title className="font-weight-bold greenText ">{data.title}</Card.Title>
                                     <Card.Text className="text-secondary"><FontAwesomeIcon icon={faMapMarkerAlt} /> {data.location}</Card.Text>
                                     <Row>
                                         <Col>
@@ -34,9 +34,9 @@ const Apartments = () => {
                                             <Card.Text className="text-secondary"><FontAwesomeIcon icon={faBath} /> {data.bathroom} Bathrooms</Card.Text>
                                         </Col>
                                     </Row>
-                                    <Row className="mt-2">
+                                    <Row className="mt-4">
                                         <Col>
-                                            <h5>${data.price}</h5>
+                                            <h2 className="font-weight-bold greenText">${data.price}</h2>
                                         </Col>
                                         <Col className="text-right">
                                             <button onClick={() => history.push(`/apartmentDetail/${data._id}`)} className="btn greenBtn">View Details</button>

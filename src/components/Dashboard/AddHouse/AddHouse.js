@@ -22,8 +22,7 @@ const AddHouse = () => {
         const newFile = e.target.files[0];
         setFile(newFile);
     };
-    console.log(addApartment);
-    console.log(file);
+    
     const handleAddedData = (e) => {
 
         const formData = new FormData()
@@ -46,7 +45,6 @@ const AddHouse = () => {
                 console.log(err)
             })
         e.preventDefault();
-        console.log(formData);
     };
 
     return (

@@ -37,7 +37,7 @@ const Bookings = () => {
                 <div className="col-md-2 col-sm-12">
                     <div className="sidebar">
                         <div className="logo">
-                            <img src={logo} alt="logo" />
+                            <Link to="/"><img src={logo} alt="logo" /></Link>
                         </div>
                         <div className="mt-5">
                             <p><Link className="link" to="bookings"><span className="booking-link"><FontAwesomeIcon icon={faNotesMedical} size="xs" /> Booking list</span></Link></p>
