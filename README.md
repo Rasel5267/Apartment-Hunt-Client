@@ -1,6 +1,6 @@
 # Apartment-Hunt (Team-work)
 
-[Apartment-Hunt Live Site](https://emajhon-clone.netlify.app/ 'Creative Agency')
+[Apartment-Hunt Live Site](https://apartment-hunt-basic.web.app/ 'Creative Agency')
 
 [Apartment-Hunt Back-End Repository](https://github.com/Rasel5267/Apartment-Hunt-Server 'Back-End')
 
