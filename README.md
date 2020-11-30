@@ -2,7 +2,7 @@
 
 [Apartment-Hunt Live Site](https://emajhon-clone.netlify.app/ 'Creative Agency')
 
-[Apartment-Hunt Back-End Repository](https://github.com/Rasel5267/Emajohn-server 'Back-End')
+[Apartment-Hunt Back-End Repository](https://github.com/Rasel5267/Apartment-Hunt-Server 'Back-End')
 
 ## Project Details
 
